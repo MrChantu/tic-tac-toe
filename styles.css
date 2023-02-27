@@ -1,0 +1,141 @@
+:root {
+    --board-border: 5px solid black;
+    --box-radius: 25px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.board-cell,
+#win-box,
+footer {
+    display: flex;
+}
+
+body,
+main,
+header,
+#board-container,
+#settings {
+    display: grid;
+}
+
+body {
+    grid-template-rows: 100px 1fr 25px;
+    height: 100vh;
+}
+
+/* header */
+
+header {
+    grid-row: 1 / 2;
+    justify-content: center;
+    align-items: center;
+}
+
+/* main */
+
+main {
+    grid-template-rows: 50px 1fr;
+}
+
+#board-container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin: auto auto;
+    width: 350px;
+    height: 350px;
+}
+
+.board-cell {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 75px;
+}
+
+.board-cell:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+#settings {
+    justify-content: center;
+    align-items: center;
+}
+
+/* footer */
+
+footer {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+footer a {
+    color: black;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* borders */
+
+.top {
+    border-top: var(--board-border);
+}
+
+.bottom {
+    border-bottom: var(--board-border);
+}
+
+.right {
+    border-right: var(--board-border);
+}
+
+.left {
+    border-left: var(--board-border);
+}
+
+/* win-box */
+#win-box {
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    border-radius: var(--box-radius);
+    gap: 25px;
+    background-color: rgb(204, 204, 204);
+    display: none;
+}
+
+#win-box h2 {
+    text-align: center;
+    font-size: 50px;
+}
+
+#win-box button {
+    background-color: white;
+    border-radius: var(--box-radius);
+    border: var(--board-border);
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#win-box button:hover {
+    transition: 1s;
+    background-color: lightgreen;
+}
