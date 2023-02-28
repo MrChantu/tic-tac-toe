@@ -13,6 +13,7 @@ let gameBoard = [
 let player = PLAYEROPTION.value;
 let enemy;
 let isWon;
+let isTie;
 
 function createBoard() {
     // Generate the cells
@@ -100,7 +101,7 @@ function addCellListeners() {
                 cell.textContent = player;
                 updateBoard();
                 // Set enemy input in box
-                const EnemySpot = getEenmyInput();
+                const EnemySpot = getEnemyInput();
                 setEnemyInput(EnemySpot[0], EnemySpot[1]);
                 updateBoard();
                 //console.log(cell);
@@ -109,7 +110,7 @@ function addCellListeners() {
     });
 }
 
-function getEenmyInput() {
+/*function getEnemyInput() {
     const array = [];
     const gbLength = gameBoard.length;
     let Row = null;
@@ -124,6 +125,20 @@ function getEenmyInput() {
             }
         }
     }
+}*/
+
+function getEnemyInput() {
+    let ROW;
+    let COLUMN;
+    const array = [];
+    do {
+        if (isWon === false && isTie === false) {
+            ROW = Math.floor(Math.random() * 3);
+            COLUMN = Math.floor(Math.random() * 3);
+        }
+    } while (gameBoard[ROW][COLUMN] === 'X' || gameBoard[ROW][COLUMN] === 'O');
+    array.push(ROW, COLUMN);
+    return array;
 }
 
 function setEnemyInput(row, column) {
@@ -140,6 +155,12 @@ function setEnemyInput(row, column) {
 function setWin(player) {
     isWon = true;
     WINBOXTEXT.textContent = `${player} wins!`;
+    WINBOX.style.display = 'flex';
+}
+
+function setTie() {
+    isTie = true;
+    WINBOXTEXT.textContent = `Tie!`;
     WINBOX.style.display = 'flex';
 }
 
@@ -201,40 +222,39 @@ function checkForWin() {
         }
     }
 
-    if (isWon === false) {
-        let isTie = false;
-        for (let i = 0; i < gbLength; i++) {
-        for (let j = 0; j < gbLength; j++) {
-            if (gameBoard[i][j] !== '') {
-                isTie = true;
-            } else {
-                isTie = false;
-            }
-        }
-        }
-        if (isTie === true) {
-            setWin("TIE");
-        }
+    if (checkForTie() === true && isWon === false) {
+        setTie()
     }
 }
 
 function checkForTie() {
-    let isTie = false;
+    /*let isTie = false;
+    const gbLength = gameBoard.length;
     for (let i = 0; i < gbLength; i++) {
-        for (let j = 0; j < gbLength; j++) {
-            if (gameBoard[i][j] !== '') {
-                isTie = true;
-            } else {
-                isTie = false;
-            }
+        if (!gameBoard[i].includes('')) {
+            return true;
         }
     }
-    if (isTie === true) {
-        setWin("TIE");
+    return false;*/
+    if (checkValueExists(gameBoard, '')) {
+        return false;
     }
+    return true;
 }
 
+function checkValueExists(array, value) {
+    for (var i = 0; i < array.length; i++) {
+      for (var j = 0; j < array[i].length; j++) {
+        if (array[i][j] === value) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 // Render everything for first startup
+isTie = false;
 isWon = false;
 createBoard();
 addCellListeners();
@@ -248,6 +268,7 @@ PLAYEROPTION.addEventListener('click', () => {
 });
 
 WINBUTTON.addEventListener('click', () => {
+    isTie = false;
     isWon = false;
     WINBOX.style.display = 'none';
     resetBoard();

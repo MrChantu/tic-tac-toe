@@ -110,6 +110,7 @@ footer a:hover {
 #win-box {
     flex-direction: column;
     position: absolute;
+    align-items: center;
     top: 50%;
     left: 50%;
     margin-right: -50%;
@@ -128,14 +129,21 @@ footer a:hover {
 
 #win-box button {
     background-color: white;
-    border-radius: var(--box-radius);
+    border-radius: 15px;
     border: var(--board-border);
     cursor: pointer;
     font-size: 25px;
     font-weight: bold;
+    width: 150px;
+    height: 50px;
 }
 
 #win-box button:hover {
     transition: 1s;
     background-color: lightgreen;
+}
+
+/* player-select */
+#player-select option {
+    border-radius: 0;
 }
